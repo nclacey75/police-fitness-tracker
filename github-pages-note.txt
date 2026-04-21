@@ -1,0 +1,1 @@
+Use this version on https://nclacey75.github.io/police-fitness-tracker/ . The manifest start_url and scope are set for that repository path. If you reinstall the Home Screen app, first delete the old icon from the iPad so Safari picks up the new manifest.
