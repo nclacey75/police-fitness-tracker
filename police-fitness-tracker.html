@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f4c5c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Fitness Tracker">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Police Fitness Tracker</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icon-192.svg">
+  <style>
+    :root,[data-theme="light"]{--text-xs:clamp(.75rem,.7rem + .25vw,.875rem);--text-sm:clamp(.875rem,.8rem + .35vw,1rem);--text-base:clamp(1rem,.95rem + .25vw,1.05rem);--text-lg:clamp(1.125rem,1rem + .75vw,1.4rem);--text-xl:clamp(1.5rem,1.2rem + 1.25vw,2rem);--space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--radius-sm:.5rem;--radius-md:.8rem;--radius-lg:1.1rem;--radius-xl:1.35rem;--radius-full:9999px;--color-bg:#f4f3f0;--color-surface:#fbfaf8;--color-surface-2:#f0ede8;--color-border:#d6d1c8;--color-divider:#e6e2db;--color-text:#1e221f;--color-text-muted:#616a66;--color-text-faint:#8d938f;--color-text-inverse:#fafaf8;--color-primary:#0f4c5c;--color-primary-hover:#0b3945;--color-primary-soft:#d7e5e9;--color-success:#376f33;--color-error:#a13a4f;--color-warning:#95611f;--shadow-sm:0 1px 2px rgba(0,0,0,.05);--shadow-md:0 10px 30px rgba(15,31,42,.08);--shadow-lg:0 18px 50px rgba(15,31,42,.15);--font-body:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    [data-theme="dark"]{--color-bg:#141717;--color-surface:#1c2121;--color-surface-2:#242a2a;--color-border:#343b3a;--color-divider:#2a302f;--color-text:#edf1ef;--color-text-muted:#b8c1bd;--color-text-faint:#86918c;--color-text-inverse:#121515;--color-primary:#67a7b3;--color-primary-hover:#8ec1cb;--color-primary-soft:#294147;--color-success:#7ec177;--color-error:#db7f93;--color-warning:#d8a55b;--shadow-sm:0 1px 2px rgba(0,0,0,.18);--shadow-md:0 10px 30px rgba(0,0,0,.28);--shadow-lg:0 18px 50px rgba(0,0,0,.4)}
+    *,*::before,*::after{box-sizing:border-box}html,body{margin:0;min-height:100%}body{font-family:var(--font-body);font-size:var(--text-base);line-height:1.5;color:var(--color-text);background:linear-gradient(180deg,var(--color-bg),var(--color-surface-2));-webkit-font-smoothing:antialiased}button,input,select,textarea{font:inherit;color:inherit}button{border:0;cursor:pointer}input,select,textarea{width:100%;border:1px solid var(--color-border);background:var(--color-surface);border-radius:var(--radius-md);padding:.82rem .92rem}textarea{resize:vertical}a,button,input,select,textarea{transition:background .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px}.app{max-width:1560px;margin:0 auto;padding:max(env(safe-area-inset-top),.75rem) 1rem max(env(safe-area-inset-bottom),1rem)}.topbar{display:flex;justify-content:space-between;gap:1rem;align-items:center;padding:.25rem 0 1rem}.brand{display:flex;align-items:center;gap:.9rem}.logo{width:48px;height:48px;color:#fff;background:linear-gradient(145deg,var(--color-primary),#0b2f38);border-radius:14px;display:grid;place-items:center;box-shadow:var(--shadow-md)}.logo svg{width:28px;height:28px}.title{font-size:var(--text-xl);font-weight:800;letter-spacing:-.03em}.subtitle{font-size:var(--text-sm);color:var(--color-text-muted)}.toolbar{display:flex;gap:.6rem;flex-wrap:wrap}.btn{min-height:46px;padding:.8rem 1rem;border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-border);box-shadow:var(--shadow-sm)}.btn.primary{background:var(--color-primary);color:var(--color-text-inverse);border-color:transparent}.btn.primary:hover{background:var(--color-primary-hover)}.btn.soft{background:var(--color-primary-soft);color:var(--color-primary-hover);border-color:transparent}.btn.warn{background:var(--color-warning);color:#fff;border-color:transparent}.btn.danger{background:var(--color-error);color:#fff;border-color:transparent}.layout{display:grid;grid-template-columns:320px 1fr;gap:1rem}.panel{background:color-mix(in srgb,var(--color-surface) 94%, transparent);border:1px solid var(--color-border);border-radius:var(--radius-xl);box-shadow:var(--shadow-md);backdrop-filter:blur(10px)}.sidebar{padding:1rem;position:sticky;top:.75rem;align-self:start}.content{padding:1rem}.kicker{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted)}.nav{display:grid;gap:.45rem;margin-top:1rem}.nav button{text-align:left;padding:.86rem .96rem;border-radius:.95rem;background:var(--color-surface);border:1px solid var(--color-border)}.nav button.active{background:var(--color-primary-soft);color:var(--color-primary-hover);font-weight:700}.stack{display:grid;gap:.9rem}.section-head{display:flex;justify-content:space-between;gap:1rem;align-items:center;margin-bottom:1rem}.field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem}.card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:1rem}.big-number{margin-top:.35rem;font-size:clamp(1.7rem,1.3rem + 1.6vw,2.4rem);font-weight:800;font-variant-numeric:tabular-nums}.screen{display:none}.screen.active{display:block}.candidate-list,.event-list{display:grid;gap:.75rem}.candidate-card{display:grid;gap:.7rem}.candidate-head{display:flex;justify-content:space-between;gap:1rem;align-items:start}.pill{display:inline-flex;align-items:center;gap:.3rem;padding:.28rem .62rem;border-radius:var(--radius-full);font-size:var(--text-xs);font-weight:700;background:var(--color-surface-2);color:var(--color-text-muted)}.pill.pass{background:color-mix(in srgb,var(--color-success) 14%, var(--color-surface));color:var(--color-success)}.pill.fail{background:color-mix(in srgb,var(--color-error) 14%, var(--color-surface));color:var(--color-error)}.muted{color:var(--color-text-muted)}.event-card{display:grid;gap:.75rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:1rem}.timer-box{display:grid;gap:.55rem;background:linear-gradient(160deg,color-mix(in srgb,var(--color-primary) 8%,var(--color-surface)),var(--color-surface));border:1px solid color-mix(in srgb,var(--color-primary) 12%,var(--color-border));border-radius:1.25rem;padding:1rem}.timer-display{font-size:clamp(2.2rem,1.8rem + 3vw,4.8rem);font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.04em}.event-actions,.row-actions,.toolbar-inline{display:flex;gap:.55rem;flex-wrap:wrap}.run-row{display:grid;grid-template-columns:minmax(170px,2fr) minmax(150px,190px) minmax(230px,1.5fr) minmax(150px,190px);gap:.8rem;align-items:center}.lap-controls{display:flex;align-items:center;gap:.45rem}.lap-badge{min-width:56px;text-align:center;padding:.5rem .56rem;border-radius:.75rem;background:var(--color-surface-2);font-weight:700}.mini{min-height:42px;padding:.68rem .82rem}.results-table{width:100%;border-collapse:collapse}.results-table th,.results-table td{padding:.75rem .5rem;border-bottom:1px solid var(--color-divider);text-align:left;font-size:var(--text-sm)}.results-table th{color:var(--color-text-muted)}.score-pass{color:var(--color-success);font-weight:800}.score-fail{color:var(--color-error);font-weight:800}.score-pending{color:var(--color-text-faint);font-weight:700}.empty{padding:1rem;text-align:center;border:1px dashed var(--color-border);border-radius:var(--radius-lg);color:var(--color-text-muted)}.note{padding:.82rem .92rem;border-radius:.95rem;background:color-mix(in srgb,var(--color-primary) 9%,var(--color-surface));border:1px solid color-mix(in srgb,var(--color-primary) 18%,var(--color-border));font-size:var(--text-sm)}dialog{width:min(720px,calc(100vw - 1rem));padding:0;border:0;border-radius:1rem;background:var(--color-surface);color:var(--color-text);box-shadow:var(--shadow-lg)}dialog::backdrop{background:rgba(6,10,18,.45)}.dialog-body{padding:1rem;display:grid;gap:.9rem}.dialog-head{display:flex;justify-content:space-between;align-items:center;gap:1rem}.footer-note{font-size:var(--text-xs);color:var(--color-text-faint);margin-top:.9rem}.hidden{display:none!important}@media (max-width:1100px){.layout{grid-template-columns:1fr}.sidebar{position:static}}@media (max-width:760px){.topbar,.section-head,.candidate-head,.run-row,.field-grid{grid-template-columns:1fr;display:grid}.toolbar,.event-actions,.row-actions,.toolbar-inline{width:100%}.btn,.mini{width:100%}.topbar{display:grid}.run-row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-label="Police Fitness Tracker logo"><img src="./fpd-logo.jpg" alt="Farmington Police logo" style="width:100%;height:100%;object-fit:cover;border-radius:12px"></div>
+      <div>
+        <div class="title">Police Fitness Tracker</div>
+        <div class="subtitle">Farmington Police offline-ready physical fitness tracking for recruiting and academy testing</div>
+      </div>
+    </div>
+    <div class="toolbar">
+      <button class="btn" id="themeToggle" type="button">Toggle theme</button>
+      <button class="btn" id="installHelpBtn" type="button">Install help</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="panel sidebar">
+      <div class="stack">
+        <div>
+          <div class="kicker">Saved sessions</div>
+          <div id="sessionList" class="stack" style="margin-top:.7rem"></div>
+        </div>
+        <button class="btn primary" id="newSessionBtn" type="button">New session</button>
+        <div class="note">After your IT staff uploads this folder to the department website, open the app in Safari, tap Share, and choose Add to Home Screen. The app then stores session data locally on the device and can reopen offline.</div>
+        <nav class="nav" aria-label="Sections">
+          <button type="button" class="active" data-screen="dashboard">Dashboard</button>
+          <button type="button" data-screen="setup">Setup</button>
+          <button type="button" data-screen="candidates">Candidates</button>
+          <button type="button" data-screen="pushups">Push-ups</button>
+          <button type="button" data-screen="situps">Sit-ups</button>
+          <button type="button" data-screen="run">1.5 Mile Run</button>
+          <button type="button" data-screen="sprint">300 Meter Sprint</button>
+          <button type="button" data-screen="results">Results</button>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="panel content">
+      <section id="screen-dashboard" class="screen active">
+        <div class="section-head"><div><h2>Session dashboard</h2><div class="muted">Active session overview and offline sync status.</div></div></div>
+        <div class="stats">
+          <div class="card"><div class="kicker">Administrator</div><div class="big-number" id="dashAdmin">—</div></div>
+          <div class="card"><div class="kicker">Test date</div><div class="big-number" id="dashDate">—</div></div>
+          <div class="card"><div class="kicker">Candidates</div><div class="big-number" id="dashCount">0</div></div>
+          <div class="card"><div class="kicker">Passed</div><div class="big-number" id="dashPassed">0</div></div>
+        </div>
+        <div class="note" id="offlineStatus">Checking offline readiness…</div>
+      </section>
+
+      <section id="screen-setup" class="screen">
+        <div class="section-head"><div><h2>Session setup</h2><div class="muted">Record the administrator, date, and internal notes for this session.</div></div></div>
+        <div class="field-grid">
+          <label>Session name<input id="sessionName" placeholder="Example: Academy Week 6 Test"></label>
+          <label>Administrator<input id="adminName" placeholder="Test administrator name"></label>
+          <label>Test date<input id="testDate" type="date"></label>
+          <label>Notes<textarea id="sessionNotes" rows="3" placeholder="Optional notes for the testing session"></textarea></label>
+        </div>
+        <div class="toolbar-inline" style="margin-top:1rem"><button class="btn primary" id="saveSetupBtn" type="button">Save setup</button></div>
+      </section>
+
+      <section id="screen-candidates" class="screen">
+        <div class="section-head"><div><h2>Candidates</h2><div class="muted">Add candidates at the start or late-arriving candidates during the session.</div></div></div>
+        <div class="event-card">
+          <div class="field-grid">
+            <label>Candidate name<input id="candidateName" placeholder="Full name"></label>
+            <label>Track<select id="candidateTrack"><option value="PO">Entry Level Police Officer</option><option value="PO_ACADEMY_EXIT">Police Officer Academy Exit</option><option value="CSO">Community Service Officer</option></select></label>
+          </div>
+          <div class="toolbar-inline" style="margin-top:.8rem"><button class="btn primary" id="addCandidateBtn" type="button">Add candidate</button></div>
+        </div>
+        <div id="candidateList" class="candidate-list" style="margin-top:1rem"></div>
+      </section>
+
+      <section id="screen-pushups" class="screen">
+        <div class="section-head"><div><h2>Push-ups</h2><div class="muted">Run repeated one-minute waves and enter results for each candidate.</div></div></div>
+        <div class="timer-box">
+          <div class="kicker">One-minute countdown</div>
+          <div class="timer-display" id="pushupsTimerDisplay">01:00.0</div>
+          <div class="muted" id="pushupsTimerSub">Ready for next wave</div>
+          <div class="event-actions">
+            <button class="btn primary" type="button" data-timer-start="pushups">Start wave</button>
+            <button class="btn" type="button" data-timer-stop="pushups">Stop</button>
+            <button class="btn" type="button" data-timer-reset="pushups">Reset</button>
+          </div>
+        </div>
+        <div id="pushupsInputs" class="event-list" style="margin-top:1rem"></div>
+      </section>
+
+      <section id="screen-situps" class="screen">
+        <div class="section-head"><div><h2>Sit-ups</h2><div class="muted">Run repeated one-minute waves and enter results for each candidate.</div></div></div>
+        <div class="timer-box">
+          <div class="kicker">One-minute countdown</div>
+          <div class="timer-display" id="situpsTimerDisplay">01:00.0</div>
+          <div class="muted" id="situpsTimerSub">Ready for next wave</div>
+          <div class="event-actions">
+            <button class="btn primary" type="button" data-timer-start="situps">Start wave</button>
+            <button class="btn" type="button" data-timer-stop="situps">Stop</button>
+            <button class="btn" type="button" data-timer-reset="situps">Reset</button>
+          </div>
+        </div>
+        <div id="situpsInputs" class="event-list" style="margin-top:1rem"></div>
+      </section>
+
+      <section id="screen-run" class="screen">
+        <div class="section-head"><div><h2>1.5 mile run</h2><div class="muted">Start one stopwatch, track laps, reorder runners, and record finish times.</div></div></div>
+        <div class="timer-box">
+          <div class="kicker">Run stopwatch</div>
+          <div class="timer-display" id="runTimerDisplay">00:00.0</div>
+          <div class="muted" id="runTimerSub">Finish button stores the live app time. Manual override remains available.</div>
+          <div class="event-actions">
+            <button class="btn primary" type="button" data-stopwatch-start="run">Start run</button>
+            <button class="btn" type="button" data-stopwatch-stop="run">Stop</button>
+            <button class="btn" type="button" data-stopwatch-reset="run">Reset</button>
+          </div>
+        </div>
+        <div id="runList" class="event-list" style="margin-top:1rem"></div>
+      </section>
+
+      <section id="screen-sprint" class="screen">
+        <div class="section-head"><div><h2>300 meter sprint</h2><div class="muted">Run multiple heats. Default order follows 1.5 mile finish times but can be adjusted.</div></div></div>
+        <div class="timer-box">
+          <div class="kicker">Sprint stopwatch</div>
+          <div class="timer-display" id="sprintTimerDisplay">00:00.0</div>
+          <div class="muted" id="sprintTimerSub">Reset between heats when needed.</div>
+          <div class="event-actions">
+            <button class="btn primary" type="button" data-stopwatch-start="sprint">Start sprint</button>
+            <button class="btn" type="button" data-stopwatch-stop="sprint">Stop</button>
+            <button class="btn" type="button" data-stopwatch-reset="sprint">Reset</button>
+          </div>
+        </div>
+        <div class="toolbar-inline" style="margin-top:1rem"><button class="btn soft" id="sortSprintBtn" type="button">Default order from 1.5 mile times</button></div>
+        <div id="sprintList" class="event-list" style="margin-top:1rem"></div>
+      </section>
+
+      <section id="screen-results" class="screen">
+        <div class="section-head"><div><h2>Results</h2><div class="muted">Review standards-based outcomes and export the session.</div></div><div class="toolbar-inline"><button class="btn" id="exportSessionPdfBtn" type="button">Export full session PDF</button><button class="btn" id="exportIndividualPdfsBtn" type="button">Export individual PDFs</button></div></div>
+        <div style="overflow:auto">
+          <table class="results-table">
+            <thead><tr><th>Name</th><th>Track</th><th>Push-ups</th><th>Sit-ups</th><th>1.5 mile</th><th>300m</th><th>Status</th></tr></thead>
+            <tbody id="resultsBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<dialog id="timeOverrideDialog">
+  <div class="dialog-body">
+    <div class="dialog-head"><h3>Override recorded time</h3><button class="btn mini" type="button" id="closeOverrideDialog">Close</button></div>
+    <div class="muted">Only replace an app-recorded time when the backup clock must be used. The result will be marked as manually overridden.</div>
+    <input id="overrideTimeInput" placeholder="MM:SS.t or SS.t">
+    <div class="toolbar-inline"><button class="btn warn" type="button" id="confirmOverrideBtn">Replace time</button></div>
+  </div>
+</dialog>
+
+<dialog id="installDialog">
+  <div class="dialog-body">
+    <div class="dialog-head"><h3>Safari / iPad install steps</h3><button class="btn mini" type="button" id="closeInstallDialog">Close</button></div>
+    <ol class="muted" style="margin:0;padding-left:1.2rem;display:grid;gap:.55rem">
+      <li>Have IT upload this app folder to the department website.</li>
+      <li>Open the app URL in Safari while online.</li>
+      <li>Tap Share, then Add to Home Screen.</li>
+      <li>Launch from the Home Screen icon later, even without internet.</li>
+      <li>Before field use, test airplane-mode launch and PDF export on at least one iPad.</li>
+    </ol>
+  </div>
+</dialog>
+
+<script>
+const DB_NAME = 'PoliceFitnessTrackerDB';
+const DB_VERSION = 1;
+const STORE_NAME = 'appState';
+const STATE_ID = 'singleton';
+const standards = {
+  PO: { label: 'Entry Level Police Officer', pushups: 15, situps: 27, run: 914, sprint: 71.0 },
+  PO_ACADEMY_EXIT: { label: 'Police Officer Academy Exit', pushups: 25, situps: 37, run: 825, sprint: 64.0 },
+  CSO: { label: 'Community Service Officer', pushups: 11, situps: 19, run: 1024, sprint: 71.0 }
+};
+const defaultState = () => ({ sessionOrder: [], sessions: {}, activeSessionId: null, theme: 'light' });
+const app = {
+  state: defaultState(),
+  ui: {},
+  db: null,
+  overrideTarget: null,
+
+  async init() {
+    this.cacheUi();
+    this.logoDataUrl = null;
+    this.bindEvents();
+    this.db = await openDatabase();
+    this.state = (await loadAppState(this.db)) || defaultState();
+    this.logoDataUrl = await loadLogoDataUrl();
+    if (!this.state.activeSessionId) this.createSession(false);
+    this.applyTheme(this.state.theme || 'light', false);
+    await this.registerServiceWorker();
+    this.renderAll();
+    this.startRenderLoop();
+    this.updateOfflineStatus();
+  },
+
+  cacheUi() {
+    ['sessionList','sessionName','adminName','testDate','sessionNotes','candidateName','candidateTrack','candidateList','pushupsInputs','situpsInputs','runList','sprintList','resultsBody','dashAdmin','dashDate','dashCount','dashPassed','offlineStatus','overrideTimeInput','timeOverrideDialog','installDialog'].forEach(id => this.ui[id] = document.getElementById(id));
+  },
+
+  bindEvents() {
+    document.getElementById('newSessionBtn').addEventListener('click', () => this.createSession());
+    document.getElementById('saveSetupBtn').addEventListener('click', () => this.saveSetup());
+    document.getElementById('addCandidateBtn').addEventListener('click', () => this.addCandidate());
+    document.getElementById('sortSprintBtn').addEventListener('click', () => this.sortSprintFromRun());
+    document.getElementById('themeToggle').addEventListener('click', () => this.applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+    document.getElementById('installHelpBtn').addEventListener('click', () => this.ui.installDialog.showModal());
+    document.getElementById('closeInstallDialog').addEventListener('click', () => this.ui.installDialog.close());
+    document.getElementById('closeOverrideDialog').addEventListener('click', () => this.ui.timeOverrideDialog.close());
+    document.getElementById('confirmOverrideBtn').addEventListener('click', () => this.confirmOverride());
+    document.getElementById('exportSessionPdfBtn').addEventListener('click', () => this.exportFullSessionPdf());
+    document.getElementById('exportIndividualPdfsBtn').addEventListener('click', () => this.exportIndividualPdfs());
+    document.querySelectorAll('[data-screen]').forEach(btn => btn.addEventListener('click', () => this.showScreen(btn.dataset.screen)));
+    document.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-timer-start],[data-timer-stop],[data-timer-reset],[data-stopwatch-start],[data-stopwatch-stop],[data-stopwatch-reset]');
+      if (!button) return;
+      if (button.dataset.timerStart) this.startCountdown(button.dataset.timerStart);
+      if (button.dataset.timerStop) this.stopCountdown(button.dataset.timerStop);
+      if (button.dataset.timerReset) this.resetCountdown(button.dataset.timerReset);
+      if (button.dataset.stopwatchStart) this.startStopwatch(button.dataset.stopwatchStart);
+      if (button.dataset.stopwatchStop) this.stopStopwatch(button.dataset.stopwatchStop);
+      if (button.dataset.stopwatchReset) this.resetStopwatch(button.dataset.stopwatchReset);
+    });
+    window.addEventListener('online', () => this.updateOfflineStatus());
+    window.addEventListener('offline', () => this.updateOfflineStatus());
+    document.addEventListener('visibilitychange', () => this.updateTimerDisplays());
+  },
+
+  activeSession() { return this.state.sessions[this.state.activeSessionId]; },
+
+  createSession(save = true) {
+    const id = crypto.randomUUID();
+    const session = {
+      id,
+      name: `Session ${this.state.sessionOrder.length + 1}`,
+      adminName: '',
+      testDate: new Date().toISOString().slice(0,10),
+      notes: '',
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      candidates: [],
+      ui: { currentScreen: 'dashboard' },
+      timers: { pushups: countdownState(60000), situps: countdownState(60000), run: stopwatchState(), sprint: stopwatchState() }
+    };
+    this.state.sessions[id] = session;
+    this.state.sessionOrder.unshift(id);
+    this.state.activeSessionId = id;
+    if (save) this.persist();
+    this.renderAll();
+  },
+
+  switchSession(id) { this.state.activeSessionId = id; this.persist(); this.renderAll(); },
+  deleteSession(id) {
+    if (!confirm('Delete this saved session?')) return;
+    delete this.state.sessions[id];
+    this.state.sessionOrder = this.state.sessionOrder.filter(x => x !== id);
+    if (this.state.activeSessionId === id) this.state.activeSessionId = this.state.sessionOrder[0] || null;
+    if (!this.state.activeSessionId) this.createSession(false);
+    this.persist();
+    this.renderAll();
+  },
+
+  saveSetup() {
+    const s = this.activeSession();
+    s.name = this.ui.sessionName.value.trim() || s.name;
+    s.adminName = this.ui.adminName.value.trim();
+    s.testDate = this.ui.testDate.value;
+    s.notes = this.ui.sessionNotes.value.trim();
+    s.updatedAt = Date.now();
+    this.persist();
+    this.renderAll();
+  },
+
+  addCandidate() {
+    const name = this.ui.candidateName.value.trim();
+    const track = this.ui.candidateTrack.value;
+    if (!name) return alert('Enter a candidate name.');
+    const order = this.activeSession().candidates.length;
+    this.activeSession().candidates.push({
+      id: crypto.randomUUID(), name, track,
+      pushups: null, situps: null, run: null, sprint: null,
+      laps: 0, runOrder: order, sprintOrder: order,
+      runOverride: false, sprintOverride: false
+    });
+    this.ui.candidateName.value = '';
+    this.persist();
+    this.renderAll();
+  },
+
+  removeCandidate(id) {
+    if (!confirm('Remove this candidate?')) return;
+    this.activeSession().candidates = this.activeSession().candidates.filter(c => c.id !== id);
+    this.reindexOrders();
+    this.persist();
+    this.renderAll();
+  },
+
+  reindexOrders() {
+    [...this.activeSession().candidates].sort((a,b)=>a.runOrder-b.runOrder).forEach((c, i) => c.runOrder = i);
+    [...this.activeSession().candidates].sort((a,b)=>a.sprintOrder-b.sprintOrder).forEach((c, i) => c.sprintOrder = i);
+  },
+
+  saveScore(id, field, value) {
+    const c = this.activeSession().candidates.find(x => x.id === id);
+    const num = value === '' ? null : Number(value);
+    c[field] = Number.isNaN(num) ? null : num;
+    this.persist();
+    this.renderResults();
+    this.renderCandidates();
+    this.renderDashboard();
+  },
+
+  showScreen(screen) {
+    this.activeSession().ui.currentScreen = screen;
+    document.querySelectorAll('.screen').forEach(el => el.classList.toggle('active', el.id === `screen-${screen}`));
+    document.querySelectorAll('[data-screen]').forEach(el => el.classList.toggle('active', el.dataset.screen === screen));
+    this.persist();
+  },
+
+  startCountdown(key) { startTimer(this.activeSession().timers[key]); this.persist(); },
+  stopCountdown(key) { stopTimer(this.activeSession().timers[key]); this.persist(); },
+  resetCountdown(key) { this.activeSession().timers[key] = countdownState(60000); this.persist(); this.updateTimerDisplays(); },
+  startStopwatch(key) { const timer = this.activeSession().timers[key]; if (key === 'run' && this.activeSession().candidates.length === 0) return alert('Add candidates before starting the run.'); startTimer(timer); this.persist(); this.updateTimerDisplays(); },
+  stopStopwatch(key) { stopTimer(this.activeSession().timers[key]); this.persist(); this.updateTimerDisplays(); },
+  resetStopwatch(key) { this.activeSession().timers[key] = stopwatchState(); this.persist(); this.updateTimerDisplays(); },
+
+  finishEvent(id, event) {
+    const c = this.activeSession().candidates.find(x => x.id === id);
+    c[event] = +(getElapsed(this.activeSession().timers[event]) / 1000).toFixed(1);
+    c[`${event}Override`] = false;
+    this.persist();
+    if (event === 'run') this.sortSprintFromRun(false);
+    this.renderAll();
+  },
+
+  bumpLap(id, delta) {
+    const c = this.activeSession().candidates.find(x => x.id === id);
+    c.laps = Math.max(0, Math.min(6, (c.laps || 0) + delta));
+    this.persist();
+    this.renderRun();
+  },
+
+  moveCandidate(id, event, direction) {
+    const field = event === 'run' ? 'runOrder' : 'sprintOrder';
+    const ordered = [...this.activeSession().candidates].sort((a,b) => a[field]-b[field]);
+    const idx = ordered.findIndex(c => c.id === id);
+    const target = direction === 'up' ? idx - 1 : idx + 1;
+    if (target < 0 || target >= ordered.length) return;
+    const a = ordered[idx], b = ordered[target];
+    [a[field], b[field]] = [b[field], a[field]];
+    this.persist();
+    event === 'run' ? this.renderRun() : this.renderSprint();
+  },
+
+  sortSprintFromRun(rerender = true) {
+    const ordered = [...this.activeSession().candidates].sort((a,b) => (a.run ?? 99999) - (b.run ?? 99999));
+    ordered.forEach((c, index) => c.sprintOrder = index);
+    this.persist();
+    if (rerender) this.renderSprint();
+  },
+
+  openOverride(id, event) {
+    this.overrideTarget = { id, event };
+    this.ui.overrideTimeInput.value = '';
+    this.ui.timeOverrideDialog.showModal();
+  },
+
+  confirmOverride() {
+    if (!this.overrideTarget) return;
+    const secs = parseTimeInput(this.ui.overrideTimeInput.value.trim());
+    if (secs == null) return alert('Enter time like 12:34.5 or 58.4');
+    const c = this.activeSession().candidates.find(x => x.id === this.overrideTarget.id);
+    c[this.overrideTarget.event] = secs;
+    c[`${this.overrideTarget.event}Override`] = true;
+    this.ui.timeOverrideDialog.close();
+    if (this.overrideTarget.event === 'run') this.sortSprintFromRun(false);
+    this.overrideTarget = null;
+    this.persist();
+    this.renderAll();
+  },
+
+  candidatePassed(c) {
+    const s = standards[c.track];
+    return c.pushups != null && c.pushups >= s.pushups && c.situps != null && c.situps >= s.situps && c.run != null && c.run <= s.run && c.sprint != null && c.sprint <= s.sprint;
+  },
+
+  renderAll() {
+    const s = this.activeSession();
+    this.ui.sessionName.value = s.name || '';
+    this.ui.adminName.value = s.adminName || '';
+    this.ui.testDate.value = s.testDate || '';
+    this.ui.sessionNotes.value = s.notes || '';
+    this.renderSessions();
+    this.renderDashboard();
+    this.renderCandidates();
+    this.renderRepEvent('pushups');
+    this.renderRepEvent('situps');
+    this.renderRun();
+    this.renderSprint();
+    this.renderResults();
+    this.showScreen(s.ui.currentScreen || 'dashboard');
+    this.updateTimerDisplays();
+  },
+
+  renderSessions() {
+    const html = this.state.sessionOrder.map(id => {
+      const s = this.state.sessions[id];
+      const active = id === this.state.activeSessionId;
+      return `<div class="card"><div style="display:flex;justify-content:space-between;gap:.5rem;align-items:start"><div><div style="font-weight:700">${escapeHtml(s.name)}</div><div class="subtitle">${s.testDate || 'No date'} · ${s.candidates.length} candidates</div></div>${active ? '<span class="pill pass">Active</span>' : ''}</div><div class="toolbar-inline" style="margin-top:.7rem"><button class="btn mini" type="button" onclick="app.switchSession('${s.id}')">Open</button><button class="btn mini" type="button" onclick="app.deleteSession('${s.id}')">Delete</button></div></div>`;
+    }).join('');
+    this.ui.sessionList.innerHTML = html || '<div class="empty">No saved sessions yet.</div>';
+  },
+
+  renderDashboard() {
+    const s = this.activeSession();
+    this.ui.dashAdmin.textContent = s.adminName || '—';
+    this.ui.dashDate.textContent = s.testDate || '—';
+    this.ui.dashCount.textContent = s.candidates.length;
+    this.ui.dashPassed.textContent = s.candidates.filter(c => this.candidatePassed(c)).length;
+  },
+
+  renderCandidates() {
+    const html = this.activeSession().candidates.map(c => {
+      const passed = this.candidatePassed(c);
+      return `<div class="card candidate-card"><div class="candidate-head"><div><h3>${escapeHtml(c.name)}</h3><div class="toolbar-inline"><span class="pill">${standards[c.track].label}</span><span class="pill ${passed ? 'pass' : 'fail'}">${passed ? 'Pass' : 'In progress / Fail'}</span></div></div><button class="btn mini" type="button" onclick="app.removeCandidate('${c.id}')">Remove</button></div><div class="muted">Push-ups: ${c.pushups ?? '—'} · Sit-ups: ${c.situps ?? '—'} · 1.5 mile: ${formatSeconds(c.run)} · 300m: ${formatSeconds(c.sprint)}</div></div>`;
+    }).join('');
+    this.ui.candidateList.innerHTML = html || '<div class="empty">No candidates added yet.</div>';
+  },
+
+  renderRepEvent(event) {
+    const target = this.ui[event + 'Inputs'];
+    target.innerHTML = this.activeSession().candidates.map(c => `<div class="event-card"><div><h3>${escapeHtml(c.name)}</h3><div class="muted">${standards[c.track].label} · Standard ${event === 'pushups' ? standards[c.track].pushups : standards[c.track].situps}</div></div><label>${event === 'pushups' ? 'Push-ups completed' : 'Sit-ups completed'}<input type="number" inputmode="numeric" min="0" value="${c[event] ?? ''}" onchange="app.saveScore('${c.id}','${event}',this.value)"></label></div>`).join('') || '<div class="empty">Add candidates first.</div>';
+  },
+
+  renderRun() {
+    const ordered = [...this.activeSession().candidates].sort((a,b) => a.runOrder - b.runOrder);
+    this.ui.runList.innerHTML = ordered.map(c => `<div class="event-card run-row"><div><h3>${escapeHtml(c.name)}</h3><div class="muted">${standards[c.track].label} · Standard ${formatSeconds(standards[c.track].run)}</div></div><div class="lap-controls"><button class="btn mini" type="button" onclick="app.bumpLap('${c.id}',-1)">−</button><div class="lap-badge">${c.laps || 0}/6</div><button class="btn mini" type="button" onclick="app.bumpLap('${c.id}',1)">+</button></div><div class="row-actions"><button class="btn mini primary" type="button" onclick="app.finishEvent('${c.id}','run')">Finish</button><button class="btn mini" type="button" onclick="app.openOverride('${c.id}','run')">Override</button><span class="pill ${c.runOverride ? 'fail' : ''}">${formatSeconds(c.run)}${c.runOverride ? ' manual' : ''}</span></div><div class="row-actions"><button class="btn mini" type="button" onclick="app.moveCandidate('${c.id}','run','up')">Move up</button><button class="btn mini" type="button" onclick="app.moveCandidate('${c.id}','run','down')">Move down</button></div></div>`).join('') || '<div class="empty">Add candidates first.</div>';
+  },
+
+  renderSprint() {
+    const ordered = [...this.activeSession().candidates].sort((a,b) => a.sprintOrder - b.sprintOrder);
+    this.ui.sprintList.innerHTML = ordered.map(c => `<div class="event-card run-row"><div><h3>${escapeHtml(c.name)}</h3><div class="muted">${standards[c.track].label} · Standard ${formatSeconds(standards[c.track].sprint)}</div></div><div><span class="pill">Run time ${formatSeconds(c.run)}</span></div><div class="row-actions"><button class="btn mini primary" type="button" onclick="app.finishEvent('${c.id}','sprint')">Finish</button><button class="btn mini" type="button" onclick="app.openOverride('${c.id}','sprint')">Override</button><span class="pill ${c.sprintOverride ? 'fail' : ''}">${formatSeconds(c.sprint)}${c.sprintOverride ? ' manual' : ''}</span></div><div class="row-actions"><button class="btn mini" type="button" onclick="app.moveCandidate('${c.id}','sprint','up')">Move up</button><button class="btn mini" type="button" onclick="app.moveCandidate('${c.id}','sprint','down')">Move down</button></div></div>`).join('') || '<div class="empty">Add candidates first.</div>';
+  },
+
+  renderResults() {
+    this.ui.resultsBody.innerHTML = this.activeSession().candidates.map(c => {
+      const s = standards[c.track];
+      const passed = this.candidatePassed(c);
+      return `<tr><td>${escapeHtml(c.name)}</td><td>${s.label}</td><td>${this.renderScoreValue(c.pushups, c.pushups != null ? c.pushups >= s.pushups : null, false)}</td><td>${this.renderScoreValue(c.situps, c.situps != null ? c.situps >= s.situps : null, false)}</td><td>${this.renderScoreValue(formatSeconds(c.run), c.run != null ? c.run <= s.run : null, true)}</td><td>${this.renderScoreValue(formatSeconds(c.sprint), c.sprint != null ? c.sprint <= s.sprint : null, true)}</td><td><span class="pill ${passed ? 'pass' : 'fail'}">${passed ? 'Pass' : 'Fail'}</span></td></tr>`;
+    }).join('') || '<tr><td colspan="7">No results yet.</td></tr>';
+  },
+
+  renderScoreValue(value, passed, preformatted) {
+    if (value == null || value === '—') return '<span class="score-pending">—</span>';
+    return `<span class="${passed ? 'score-pass' : 'score-fail'}">${preformatted ? value : escapeHtml(String(value))}</span>`;
+  },
+
+  startRenderLoop() {
+    const loop = () => { this.updateTimerDisplays(); requestAnimationFrame(loop); };
+    loop();
+  },
+
+  updateTimerDisplays() {
+    const s = this.activeSession(); if (!s) return;
+    const push = getRemaining(s.timers.pushups), sit = getRemaining(s.timers.situps);
+    document.getElementById('pushupsTimerDisplay').textContent = formatStopwatch(push);
+    document.getElementById('situpsTimerDisplay').textContent = formatStopwatch(sit);
+    document.getElementById('runTimerDisplay').textContent = formatStopwatch(getElapsed(s.timers.run));
+    document.getElementById('sprintTimerDisplay').textContent = formatStopwatch(getElapsed(s.timers.sprint));
+    document.getElementById('pushupsTimerSub').textContent = push === 0 ? 'Wave complete' : (s.timers.pushups.running ? 'Timing wave' : 'Ready for next wave');
+    document.getElementById('situpsTimerSub').textContent = sit === 0 ? 'Wave complete' : (s.timers.situps.running ? 'Timing wave' : 'Ready for next wave');
+    document.getElementById('runTimerSub').textContent = s.timers.run.running ? 'Run timer is active.' : 'Finish button stores the live app time. Manual override remains available.';
+    document.getElementById('sprintTimerSub').textContent = s.timers.sprint.running ? 'Sprint timer is active.' : 'Reset between heats when needed.';
+  },
+
+  async registerServiceWorker() {
+    if (!('serviceWorker' in navigator)) return;
+    try { await navigator.serviceWorker.register('./service-worker.js'); } catch (e) { console.warn('SW registration failed', e); }
+  },
+
+  updateOfflineStatus() {
+    const ready = navigator.onLine ? 'Online. App can sync updates and install cleanly from Safari.' : 'Offline. Stored sessions remain available on this device.';
+    this.ui.offlineStatus.textContent = ready;
+  },
+
+  async persist() { this.state.theme = document.documentElement.getAttribute('data-theme') || 'light'; await saveAppState(this.db, this.state); },
+  applyTheme(theme, save = true) { document.documentElement.setAttribute('data-theme', theme); if (save) this.persist(); },
+
+  exportFullSessionPdf() {
+    const s = this.activeSession();
+    const rows = [[`Session: ${s.name}`,''],[`Administrator: ${s.adminName || '—'}`,''],[`Date: ${s.testDate || '—'}`,''],['','']];
+    s.candidates.forEach(c => {
+      const st = standards[c.track];
+      rows.push([`${c.name} (${st.label})`, this.candidatePassed(c) ? 'PASS' : 'FAIL']);
+      rows.push([`Push-ups: ${c.pushups ?? '—'} (std ${st.pushups})`,`Sit-ups: ${c.situps ?? '—'} (std ${st.situps})`]);
+      rows.push([`1.5 mile: ${formatSeconds(c.run)} (std ${formatSeconds(st.run)})`,`300m: ${formatSeconds(c.sprint)} (std ${formatSeconds(st.sprint)})`]);
+      rows.push(['','']);
+    });
+    downloadPdf(buildSimplePdf(`Police Fitness Session Results - ${s.name}`, rows, this.logoDataUrl), `${slugify(s.name)}-session-results.pdf`);
+  },
+
+  exportIndividualPdfs() {
+    const s = this.activeSession();
+    s.candidates.forEach(c => {
+      const st = standards[c.track];
+      const rows = [[`Candidate: ${c.name}`,''],[`Track: ${st.label}`,''],[`Administrator: ${s.adminName || '—'}`,`Date: ${s.testDate || '—'}`],['',''],[`Push-ups: ${c.pushups ?? '—'}`, passLabel(c.pushups != null ? c.pushups >= st.pushups : null)], [`Sit-ups: ${c.situps ?? '—'}`, passLabel(c.situps != null ? c.situps >= st.situps : null)], [`1.5 mile: ${formatSeconds(c.run)}`, passLabel(c.run != null ? c.run <= st.run : null)], [`300m: ${formatSeconds(c.sprint)}`, passLabel(c.sprint != null ? c.sprint <= st.sprint : null)], ['Overall', this.candidatePassed(c) ? 'PASS' : 'FAIL']];
+      downloadPdf(buildSimplePdf(`Police Fitness Candidate Results - ${c.name}`, rows, this.logoDataUrl), `${slugify(c.name)}-results.pdf`);
+    });
+  }
+};
+
+function passLabel(v){ return v === null ? 'PENDING' : (v ? 'PASS' : 'FAIL'); }
+function countdownState(duration){ return { mode:'countdown', duration, elapsed:0, startedAtMono:null, running:false }; }
+function stopwatchState(){ return { mode:'stopwatch', elapsed:0, startedAtMono:null, running:false }; }
+function monotonicNow(){ return performance.now(); }
+function startTimer(timer){ if(!timer || timer.running) return; timer.running = true; timer.startedAtMono = monotonicNow(); }
+function stopTimer(timer){ if(!timer || !timer.running) return; timer.elapsed = getElapsed(timer); timer.running = false; timer.startedAtMono = null; }
+function getElapsed(timer){ if(!timer) return 0; if(!timer.running) return timer.elapsed || 0; return (timer.elapsed || 0) + Math.max(0, monotonicNow() - (timer.startedAtMono || monotonicNow())); }
+function getRemaining(timer){ return Math.max(0, timer.duration - getElapsed(timer)); }
+function formatStopwatch(ms){ const totalTenths = Math.floor(ms / 100); const minutes = Math.floor(totalTenths / 600); const seconds = Math.floor((totalTenths % 600) / 10); const tenths = totalTenths % 10; return `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}.${tenths}`; }
+function formatSeconds(seconds){ if(seconds == null) return '—'; const mins = Math.floor(seconds / 60); const secs = (seconds % 60).toFixed(1).padStart(4,'0'); return `${String(mins).padStart(2,'0')}:${secs}`; }
+function parseTimeInput(value){ if(!value) return null; if(value.includes(':')){ const [m,s]=value.split(':'); const mm = Number(m), ss = Number(s); if(Number.isNaN(mm)||Number.isNaN(ss)) return null; return +(mm * 60 + ss).toFixed(1);} const s=Number(value); return Number.isNaN(s) ? null : +s.toFixed(1); }
+function escapeHtml(str){ return String(str).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+function slugify(text){ return String(text).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') || 'fitness-report'; }
+async function openDatabase(){ return await new Promise((resolve, reject) => { const req = indexedDB.open(DB_NAME, DB_VERSION); req.onupgradeneeded = () => req.result.createObjectStore(STORE_NAME, { keyPath:'id' }); req.onsuccess = () => resolve(req.result); req.onerror = () => reject(req.error); }); }
+async function loadAppState(db){ return await new Promise((resolve, reject) => { const tx = db.transaction(STORE_NAME, 'readonly'); const req = tx.objectStore(STORE_NAME).get(STATE_ID); req.onsuccess = () => resolve(req.result ? req.result.value : null); req.onerror = () => reject(req.error); }); }
+async function saveAppState(db, value){ return await new Promise((resolve, reject) => { const tx = db.transaction(STORE_NAME, 'readwrite'); tx.objectStore(STORE_NAME).put({ id: STATE_ID, value }); tx.oncomplete = () => resolve(); tx.onerror = () => reject(tx.error); }); }
+function downloadPdf(pdfBytes, filename){ const blob = new Blob([pdfBytes], { type: 'application/pdf' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1500); }
+async function loadLogoDataUrl(){
+  try {
+    const response = await fetch('./fpd-logo.jpg');
+    const blob = await response.blob();
+    return await new Promise((resolve,reject)=>{ const reader = new FileReader(); reader.onload = ()=>resolve(reader.result); reader.onerror = reject; reader.readAsDataURL(blob); });
+  } catch { return null; }
+}
+
+function buildSimplePdf(title, rows, logoDataUrl){
+  const pageW = 612, pageH = 792, left = 54, top = 64, lineHeight = 18;
+  const content = [];
+  let y = top;
+  if (logoDataUrl) {
+    const jpg = decodeJpegDataUrl(logoDataUrl);
+    if (jpg) {
+      const imgW = 180;
+      const imgH = Math.max(42, Math.round(imgW * (jpg.height / jpg.width)));
+      content.push('q');
+      content.push(`${imgW} 0 0 ${imgH} ${left} ${pageH - top - imgH + 6} cm`);
+      content.push('/Im1 Do');
+      content.push('Q');
+      y += imgH + 10;
+    }
+  }
+  content.push('BT');
+  content.push('/F1 18 Tf');
+  content.push(`${left} ${pageH - y} Td (${pdfEscape(title)}) Tj`);
+  content.push('ET');
+  y += 28;
+  rows.forEach(pair => {
+    pair.forEach(text => {
+      if (!text) { y += 10; return; }
+      const wrapped = wrapText(String(text), 82);
+      wrapped.forEach(line => {
+        if (y > pageH - 60) return;
+        content.push('BT');
+        content.push('/F1 11 Tf');
+        content.push(`${left} ${pageH - y} Td (${pdfEscape(line)}) Tj`);
+        content.push('ET');
+        y += lineHeight;
+      });
+    });
+  });
+  const stream = content.join('\n');
+  const objects = [];
+  const offsets = [];
+  const addObj = str => { offsets.push(0); objects.push(str); };
+  addObj('1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj');
+  addObj('2 0 obj << /Type /Pages /Count 1 /Kids [3 0 R] >> endobj');
+  let imageObjNum = null;
+  let imageInfo = logoDataUrl ? decodeJpegDataUrl(logoDataUrl) : null;
+  if (imageInfo) imageObjNum = 6;
+  addObj(`3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageW} ${pageH}] /Resources << /Font << /F1 4 0 R >> ${imageInfo ? `/XObject << /Im1 ${imageObjNum} 0 R >>` : ''} >> /Contents 5 0 R >> endobj`);
+  addObj('4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj');
+  addObj(`5 0 obj << /Length ${stream.length} >> stream\n${stream}\nendstream endobj`);
+  if (imageInfo) addObj(`6 0 obj << /Type /XObject /Subtype /Image /Width ${imageInfo.width} /Height ${imageInfo.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${imageInfo.bytes.length} >> stream\n${imageInfo.binary}\nendstream endobj`);
+  let pdf = '%PDF-1.4\n';
+  objects.forEach((obj, i) => { offsets[i] = pdf.length; pdf += obj + '\n'; });
+  const xrefPos = pdf.length;
+  pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
+  offsets.forEach(off => { pdf += `${String(off).padStart(10,'0')} 00000 n \n`; });
+  pdf += `trailer << /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefPos}\n%%EOF`;
+  return new TextEncoder().encode(pdf);
+}
+function wrapText(text, width){ const words = text.split(/\s+/); const lines = []; let line=''; words.forEach(word => { const next = line ? line + ' ' + word : word; if(next.length > width){ if(line) lines.push(line); line = word; } else line = next; }); if(line) lines.push(line); return lines; }
+function decodeJpegDataUrl(dataUrl){
+  if(!dataUrl || !dataUrl.startsWith('data:image/jpeg;base64,')) return null;
+  const base64 = dataUrl.split(',')[1];
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++) bytes[i] = binary.charCodeAt(i);
+  let width = 0, height = 0, i = 2;
+  while(i < bytes.length){
+    if(bytes[i] !== 0xFF){ i++; continue; }
+    const marker = bytes[i+1];
+    const len = (bytes[i+2] << 8) + bytes[i+3];
+    if([0xC0,0xC1,0xC2,0xC3].includes(marker)){
+      height = (bytes[i+5] << 8) + bytes[i+6];
+      width = (bytes[i+7] << 8) + bytes[i+8];
+      break;
+    }
+    i += 2 + len;
+  }
+  return { width, height, bytes, binary };
+}
+function pdfEscape(str){ return String(str).replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)'); }
+window.app = app;
+app.init();
+</script>
+</body>
+</html>
